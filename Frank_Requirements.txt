@@ -1,0 +1,35 @@
+Install Python
+Download and install Python from python.org.
+Ensure Python is added to your system PATH during installation.
+
+Create a Virtual Environment
+Open Command Prompt and navigate to your project directory.
+Create a virtual environment by running:
+bash
+python -m venv venv
+Activate the virtual environment:
+bash
+venv\Scripts\activate
+
+Install Required Libraries
+With the virtual environment activated, install the necessary libraries:
+bash
+pip install Flask flask-cors python-dotenv langchain-openai langchain-community pinecone-client numpy pdfkit requests beautifulsoup4 aiohttp tempfile pytube whisper
+
+Install wkhtmltopdf
+Download wkhtmltopdf from wkhtmltopdf.org and install it.
+Ensure that wkhtmltopdf is installed in the default directory C:\Program Files\wkhtmltopdf\.
+Set Up Environment Variables
+
+Create a .env file in your project directory with the following content:
+OPENAI_API_KEY=your_openai_api_key
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENV=your_pinecone_environment
+Replace your_openai_api_key, your_pinecone_api_key, and your_pinecone_environment with your actual API keys and environment name.
+
+
+Run the Flask Application
+Start the Flask app by running:
+bash
+python your_flask_file_name.py
+Replace your_flask_file_name.py with the actual filename of your script.
