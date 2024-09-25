@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'frankllm'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_bc3eb4db135d4c27bb38e210df5c3ae6 }}
+          publish-profile: srhGlFYkdKLn9wxlruXAH9mkdjtXGcKEcply0mYwdMjAnXb3mpHlhzf1nGvZ
