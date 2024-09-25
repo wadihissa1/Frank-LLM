@@ -59,6 +59,8 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+      - name: Install custom packages
+        run: pip install Flask flask-cors python-dotenv langchain-openai langchain-community pinecone-client numpy pdfkit requests beautifulsoup4 aiohttp tempfile pytube whisper
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
