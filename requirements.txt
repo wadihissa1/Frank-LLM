@@ -20,4 +20,5 @@ pdfkit
 requests
 beautifulsoup4
 aiohttp
+wkhtmltopdf
 git+https://github.com/openai/whisper.git
