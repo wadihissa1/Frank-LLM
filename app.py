@@ -162,7 +162,7 @@ def fetch_main_content(url):
 if platform.system() == 'Windows':
     path_to_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 else:
-    path_to_wkhtmltopdf = '/usr/local/lib/wkhtmltopdf'  # Example for Unix-based systems (Linux, macOS)
+    path_to_wkhtmltopdf = '/usr/bin/wkhtmltopdf'  # Example for Unix-based systems (Linux, macOS)
 
 config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
 
