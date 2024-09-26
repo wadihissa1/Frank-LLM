@@ -11,4 +11,13 @@ pinecone-client
 scikit-learn
 ruff
 pypdf
+Flask 
+flask-cors 
+langchain-community 
+pinecone-client 
+numpy 
+pdfkit 
+requests
+beautifulsoup4
+aiohttp
 git+https://github.com/openai/whisper.git
