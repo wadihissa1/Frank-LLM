@@ -63,7 +63,7 @@ jobs:
         run: pip install Flask flask-cors python-dotenv langchain-openai langchain-community pinecone-client numpy pdfkit requests
 
       - name: Install custom packages 1
-        run: pip install beautifulsoup4 whisper aiohttp tempfile pytube
+        run: pip install beautifulsoup4 whisper aiohttp pytube
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
