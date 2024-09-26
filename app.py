@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
+import platform
 from langchain_community.llms import Ollama
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_openai.embeddings import OpenAIEmbeddings
@@ -157,8 +158,11 @@ def fetch_main_content(url):
     
     return str(content)
 
-# Specify the path to wkhtmltopdf
-path_to_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+# Specify the path to wkhtmltopdf based on the operating system
+if platform.system() == 'Windows':
+    path_to_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+else:
+    path_to_wkhtmltopdf = '/usr/local/bin/wkhtmltopdf'  # Example for Unix-based systems (Linux, macOS)
 
 config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
 
