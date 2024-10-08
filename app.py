@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
-import platform
 from langchain_community.llms import Ollama
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_openai.embeddings import OpenAIEmbeddings
@@ -28,6 +27,14 @@ from pytube import YouTube
 import re
 from pytube.innertube import _default_clients
 from pytube import cipher
+import importlib
+def lazy_import(module_name):
+    return importlib.import_module(module_name)
+
+def lazy_import_pytube_youtube():
+    pytube = lazy_import("pytube")
+    return pytube.YouTube
+
 
 # Fix for Pytube throttling issue
 _default_clients["ANDROID"]["context"]["client"]["clientVersion"] = "19.08.35"
@@ -64,9 +71,6 @@ def get_throttling_function_name(js: str) -> str:
     raise Exception("Throttling function name not found")
 
 cipher.get_throttling_function_name = get_throttling_function_name
-
-# Set up logging
-logging.basicConfig(level=logging.DEBUG)
 
 # Load environment variables
 load_dotenv()
@@ -158,15 +162,13 @@ def fetch_main_content(url):
     
     return str(content)
 
-# Specify the path to wkhtmltopdf based on the operating system
-if platform.system() == 'Windows':
-    path_to_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-else:
-    path_to_wkhtmltopdf = '/usr/bin/wkhtmltopdf'  # Example for Unix-based systems (Linux, macOS)
+# Specify the path to wkhtmltopdf
+path_to_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 
 config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
 
 def save_content_to_pdf(html_content, pdf_path):
+    pdfkit = lazy_import("pdfkit")  # Lazy import when the function is called
     html_file_path = "content.html"
     with open(html_file_path, "w", encoding="utf-8") as file:
         file.write(html_content)
@@ -266,7 +268,7 @@ def fetch_and_process():
                 logging.debug(f"Inserting embedding with key {unique_key}: {embedding}")
                 index.upsert([(unique_key, embedding, {'page_content': page.page_content})])
 
-        return jsonify({'message': 'PDF content has been processed and indexed successfully'}), 200
+        return jsonify({'message': 'Web Page content has been processed and indexed successfully'}), 200
 
     except Exception as e:
         logging.error(f"Error processing website content: {str(e)}")
@@ -499,6 +501,9 @@ def transcribe():
     
     try:
         # Download and transcribe the audio
+        YouTube = lazy_import_pytube_youtube()
+        whisper = lazy_import("whisper")
+
         youtube = YouTube(youtube_url)
         audio = youtube.streams.filter(only_audio=True).first()
         whisper_model = whisper.load_model("base")
@@ -534,4 +539,4 @@ def transcribe():
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.102', port=5000, debug=True)
+    app.run(host='172.20.10.3', port=5000, debug=False)
