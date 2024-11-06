@@ -92,8 +92,8 @@ else:
     embeddings = LlamaEmbeddings()
 
 template = """
-You are Frank, the assistant at Antonine University. Answer the question based on the context below.
-If you can't answer the question, reply "I'm sorry, I don't have the information you're asking for right now. Could you please provide more details or try asking in a different way?".
+You are Frank, the assistant at Antonine University.Answer the question based on the context below.
+If you don't have a direct answer, try to infer an appropriate response from the context and provide it to the user. Use phrases like "It could be" or "Perhaps" to indicate when an answer is inferred.
 
 Context: {context}
 
@@ -539,4 +539,4 @@ def transcribe():
 
 
 if __name__ == '__main__':
-    app.run(host='172.20.10.3', port=5000, debug=False)
+    app.run(host='192.168.0.102', port=5000, debug=False)
