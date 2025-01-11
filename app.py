@@ -537,6 +537,27 @@ def transcribe():
         logging.error(f"Error during transcription: {str(e)}")
         return jsonify({"error": f"Error during transcription: {str(e)}"}), 500
 
+@app.route('/signin', methods=['POST'])
+def signin():
+    try:
+        # Get JSON data from the request
+        data = request.json
+        username = data.get('username')
+        password = data.get('password')
+
+        # Check if username and password are provided
+        if not username or not password:
+            return jsonify({'error': 'Username and password are required'}), 400
+
+        # Validate credentials
+        if username == 'admin' and password == 'UApass':
+            return jsonify({'message': 'Sign in successful', 'status': 'success'}), 200
+        else:
+            return jsonify({'error': 'Invalid username or password', 'status': 'failure'}), 401
+
+    except Exception as e:
+        logging.error(f"Error during sign in: {str(e)}")
+        return jsonify({'error': f"Error during sign in: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.102', port=5000, debug=False)
+    app.run(host='192.168.0.105', port=5000, debug=False)
